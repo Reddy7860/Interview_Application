@@ -1,0 +1,32 @@
+"""
+WSGI Configuration File for PythonAnywhere
+
+Copy this file content to your PythonAnywhere WSGI file:
+/var/www/YOUR_USERNAME_pythonanywhere_com_wsgi.py
+
+Replace YOUR_USERNAME with your actual PythonAnywhere username.
+"""
+
+import sys
+import os
+
+# Add your project directory to the path
+# REPLACE 'YOUR_USERNAME' with your PythonAnywhere username
+# REPLACE 'star-interview-evaluator' with your actual project folder name
+project_home = '/home/YOUR_USERNAME/star-interview-evaluator'
+if project_home not in sys.path:
+    sys.path.insert(0, project_home)
+
+# Change to your project directory
+os.chdir(project_home)
+
+# Load environment variables
+from dotenv import load_dotenv
+load_dotenv()
+
+# Import your Flask app
+from app import app as application
+
+if __name__ == "__main__":
+    application.run()
+

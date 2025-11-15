@@ -1,0 +1,96 @@
+.interview-resources {
+  background-color: var(--bg-secondary);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.interview-resources .loading {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 20px;
+}
+
+.resources-content {
+  margin-top: 20px;
+}
+
+.company-values {
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.values-header {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 15px 20px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.values-header:hover {
+  background-color: var(--bg-secondary);
+}
+
+.dropdown-arrow {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.values-content {
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.company-name {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.principles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.principles-list li {
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.principles-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-purple);
+  font-weight: bold;
+}
+
+.values-tip {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(139, 92, 246, 0.1);
+  border-left: 3px solid var(--accent-purple);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAR Behavioral Interview Answer Evaluator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1 class="header-title">STAR Behavioral Interview Answer Evaluator</h1>
+            <p class="header-subtitle">
+                Get comprehensive, expert feedback on your behavioral interview answers using AI-powered analysis.
+            </p>
+        </header>
+
+        <div class="app-container">
+            <div class="main-content">
+                <section class="how-it-works">
+                    <h2 class="section-title">How it works:</h2>
+                    <ol class="steps-list">
+                        <li>Select your target role and company</li>
+                        <li>Choose or enter the behavioral question</li>
+                        <li>Paste your STAR-formatted answer</li>
+                        <li>Receive detailed evaluation with scores, improvements, and interview tips</li>
+                    </ol>
+                </section>
+
+                <div class="content-grid">
+                    <div class="left-column">
+                        <section class="interview-info" id="interview-info">
+                            <h2 class="section-title">Your Interview Information</h2>
+                            <div class="info-grid">
+                                <div class="info-field">
+                                    <label for="target-role">Target Role</label>
+                                    <p class="field-instruction">Select the role you're interviewing for</p>
+                                    <select id="target-role" class="select-input"></select>
+                                </div>
+
+                                <div class="info-field">
+                                    <label for="target-company">Target Company</label>
+                                    <p class="field-instruction">Select the company</p>
+                                    <select id="target-company" class="select-input"></select>
+                                </div>
+
+                                <div class="info-field">
+                                    <label for="experience-level">Experience Level</label>
+                                    <p class="field-instruction">Your current experience level</p>
+                                    <select id="experience-level" class="select-input"></select>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="interview-question" id="interview-question">
+                            <h2 class="section-title">Interview Question</h2>
+                            <div class="question-selector">
+                                <button type="button" class="select-question-btn" id="select-question-btn">
+                                    Select Question
+                                </button>
+                                <p class="field-instruction">
+                                    Choose a common question or select 'Custom/Other' to enter your own
+                                </p>
+                                
+                                <div class="question-dropdown" id="question-dropdown" style="display: none;">
+                                    <div class="question-list" id="question-list"></div>
+                                </div>
+
+                                <input
+                                    type="text"
+                                    class="question-input"
+                                    id="question-input"
+                                    placeholder="Choose a common question or select Custom/other to enter your own"
+                                />
+                            </div>
+                        </section>
+
+                        <section class="star-answer" id="star-answer">
+                            <h2 class="section-title">Your STAR Answer</h2>
+                            <div class="answer-mode-selection">
+                                <label class="radio-option">
+                                    <input type="radio" name="answer-mode" value="custom" id="mode-custom" checked>
+                                    <span>Custom (Write Your Own)</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="answer-mode" value="ai" id="mode-ai">
+                                    <span>AI Written (Generate with ChatGPT)</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Custom Answer Mode -->
+                            <div class="answer-mode-content" id="custom-answer-mode">
+                                <div class="answer-tabs">
+                                    <div class="tab active">Your Written Answer</div>
+                                </div>
+                                <div class="answer-container">
+                                    <textarea
+                                        class="answer-textarea"
+                                        id="answer-textarea"
+                                        placeholder="Paste your STAR-formatted answer here...
+Example structure:
+Situation: (Context and stakes)
+Task: (Your responsibility and challenge)
+Action: (What you did and why)
+Result: (Outcomes and learnings)"
+                                        rows="15"
+                                    ></textarea>
+                                    <button
+                                        type="button"
+                                        class="evaluate-btn"
+                                        id="evaluate-btn"
+                                    >
+                                        Evaluate My Answer
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- AI Generated Answer Mode -->
+                            <div class="answer-mode-content" id="ai-answer-mode" style="display: none;">
+                                <div class="ai-prompt-section">
+                                    <label for="ai-context-input">Provide context about your experience (optional but recommended):</label>
+                                    <textarea
+                                        class="ai-context-input"
+                                        id="ai-context-input"
+                                        placeholder="Example: I'm a software engineer with 5 years of experience. I've worked on web applications, APIs, and cloud infrastructure. I've led small teams and worked on projects involving microservices architecture..."
+                                        rows="5"
+                                    ></textarea>
+                                    <button
+                                        type="button"
+                                        class="generate-ai-btn"
+                                        id="generate-ai-btn"
+                                    >
+                                        🤖 Generate STAR Answer with AI
+                                    </button>
+                                    <div class="ai-generating" id="ai-generating" style="display: none;">
+                                        <div class="progress-bar-container">
+                                            <div class="progress-bar" id="ai-progress-bar"></div>
+                                        </div>
+                                        <p class="progress-text" id="ai-progress-text">Generating your STAR answer...</p>
+                                    </div>
+                                </div>
+                                <div class="ai-generated-answer" id="ai-generated-answer" style="display: none;">
+                                    <label>AI Generated Answer:</label>
+                                    <textarea
+                                        class="answer-textarea"
+                                        id="ai-answer-textarea"
+                                        rows="15"
+                                        readonly
+                                    ></textarea>
+                                    <div class="ai-answer-actions">
+                                        <button
+                                            type="button"
+                                            class="edit-ai-btn"
+                                            id="edit-ai-btn"
+                                        >
+                                            ✏️ Edit Answer
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="evaluate-btn"
+                                            id="evaluate-ai-btn"
+                                        >
+                                            Evaluate My Answer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="evaluation-results" id="evaluation-results">
+                            <h2 class="section-title">Evaluation Results</h2>
+                            <div class="evaluation-content">
+                                <h3 class="subsection-title">Comprehensive Evaluation</h3>
+
+                                <div class="evaluation-progress" id="evaluation-progress" style="display: none;">
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" id="progress-bar"></div>
+                                    </div>
+                                    <p class="progress-text" id="progress-text">
+                                        Generating recommendations... - 0%
+                                    </p>
+                                </div>
+
+                                <div class="evaluation-placeholder" id="evaluation-placeholder">
+                                    Your evaluation will appear here after submission...
+                                </div>
+
+                                <div class="evaluation-details" id="evaluation-details" style="display: none;"></div>
+                            </div>
+
+                            <div class="tips-section">
+                                <h3 class="subsection-title">Tips for Best Results</h3>
+                                <ul>
+                                    <li>Be specific: Include numbers, metrics, and concrete details</li>
+                                    <li>Show your thinking: Explain <em>why</em> you made certain decisions</li>
+                                    <li>Demonstrate impact: Connect your actions to business outcomes</li>
+                                    <li>Include learning: What did you take away from the experience?</li>
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="right-column">
+                        <section class="interview-resources" id="interview-resources">
+                            <h2 class="section-title">Interview Resources</h2>
+                            <div class="resources-content">
+                                <div class="company-values">
+                                    <button type="button" class="values-header" id="values-header">
+                                        <span>Company Values Reference</span>
+                                        <span class="dropdown-arrow">▼</span>
+                                    </button>
+                                    <div class="values-content" id="values-content">
+                                        <div class="company-name" id="company-name">Loading...</div>
+                                        <ul class="principles-list" id="principles-list"></ul>
+                                        <div class="values-tip" id="values-tip"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+

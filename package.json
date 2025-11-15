@@ -1,0 +1,14 @@
+{
+  "name": "star-interview-evaluator",
+  "version": "1.0.0",
+  "description": "AI-powered STAR Behavioral Interview Answer Evaluator",
+  "scripts": {
+    "dev": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "install:client": "cd client && npm install"
+  },
+  "keywords": ["interview", "star", "ai", "evaluation"],
+  "author": "",
+  "license": "MIT"
+}
+
